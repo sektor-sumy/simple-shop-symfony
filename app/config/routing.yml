@@ -1,3 +1,48 @@
-app:
-    resource: "@AppBundle/Controller/"
+app_frontend:
+    host:     "{domain}"
+    resource: "@AppBundle/Controller/Frontend"
     type:     annotation
+    defaults:
+        domain: "%main_domain%"
+    requirements:
+        domain: "%main_domain%"
+
+app_account:
+    host:     "{domain}"
+    resource: "@AppBundle/Controller/Account"
+    type:     annotation
+    prefix:   /account
+    defaults:
+        domain: "%main_domain%"
+    requirements:
+        domain: "%main_domain%"
+
+app_backend:
+    host:     "{domain}"
+    resource: "@AppBundle/Controller/Backend"
+    type:     annotation
+    defaults:
+        domain: "%backend_domain%"
+    requirements:
+        domain: "%backend_domain%"
+
+api:
+    host: "{domain}"
+    resource: "@AppBundle/Controller/Api"
+    type:     annotation
+    defaults:
+        domain: "%api_domain%"
+    requirements:
+        domain: "%api_domain%"
+
+file:
+    host:     "{domain}"
+    path:     "/{path}"
+    defaults:
+        domain: "%files_domain%"
+    requirements:
+        domain: "%files_domain%"
+        path: .+
+
+elfinder:
+     resource: "@FMElfinderBundle/Resources/config/routing.yml"

@@ -1,0 +1,10 @@
+default:
+  files:
+    -
+      expand: true
+      flatten: false
+      cwd: "./app/Resources/img"
+      src:
+        - "*/**"
+        - "!sprites/**"
+      dest: web/img

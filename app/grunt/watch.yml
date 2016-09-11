@@ -1,0 +1,25 @@
+less_frontend:
+  files:
+    - "app/Resources/less/frontend/**/*.less"
+  tasks:
+    - less:dev_frontend
+less_backend:
+  files:
+    - "app/Resources/less/backend/**/*.less"
+  tasks:
+    - less:dev_backend
+less_account:
+  files:
+    - "app/Resources/less/account/**/*.less"
+  tasks:
+    - less:dev_account
+less_email:
+  files:
+    - "app/Resources/less/email/**/*.less"
+  tasks:
+    - less:dev_email
+uglify:
+  files:
+    - "app/Resources/js/**/*.js"
+  tasks:
+    - uglify:main

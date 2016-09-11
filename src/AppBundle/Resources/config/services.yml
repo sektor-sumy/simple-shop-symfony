@@ -1,0 +1,46 @@
+services:
+    # Listeners & Subscribers
+    app.locale_listener:
+        class: AppBundle\Subscriber\Kernel\LocaleSubscriber
+        arguments: ["%kernel.default_locale%"]
+        tags:
+            - { name: kernel.event_subscriber }
+    app.controller_events_subscriber:
+        class: AppBundle\Subscriber\Kernel\ControllerEventsSubscriber
+        tags:
+            - { name: kernel.event_subscriber }
+
+    # Services
+    session.handler.pdo:
+        class: Symfony\Component\HttpFoundation\Session\Storage\Handler\PdoSessionHandler
+        public: false
+        arguments:
+            - "pgsql:host=%database_host%;port=%database_port%;dbname=%database_name%"
+            - { db_username: %database_user%, db_password: %database_password%, db_table: %session_table% }
+    service.user:
+        class:     AppBundle\Service\UserService
+        arguments: [ "@security.token_storage", "@doctrine", "@security.password_encoder" ]
+    # Http + Rpc Client
+    guzzle.client:
+        class: GuzzleHttp\Client
+
+    # Twig Extension
+    twig.extension.text:
+        class: Twig_Extensions_Extension_Text
+        tags:
+            - { name: twig.extension }
+    twig.extension.intl_extension:
+        class: Twig_Extensions_Extension_Intl
+        tags:
+            - { name: twig.extension }
+    twig.extension.date_extension:
+        class: Twig_Extensions_Extension_Date
+        tags:
+            - { name: twig.extension }
+    twig.extension.grunt_asset_extension:
+        class: AppBundle\Twig\GruntAssetExtension
+        arguments:
+            - "@twig"
+            - "%grunt_assets_path%"
+        tags:
+            - { name: twig.extension }

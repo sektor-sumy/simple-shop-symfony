@@ -1,0 +1,39 @@
+{% extends 'AppBundle::Account/base.html.twig' %}
+
+{% block body %}
+<body>
+    <div id="main-wrapper" class="main-wrapper">
+        {% include "AppBundle::Account/Layout/menu.html.twig" %}
+        <div id="content-wrapper" class="container-fluid">
+
+            {% include "@App/Account/Layout/impersonate.html.twig" %}
+
+            <div class="row page-header">
+                <div class="col-lg-12 col-md-12 col-xs-12">
+                    <h1>
+                        {{ page_title|default('Account'|trans) }}
+                    </h1>
+                </div>
+                <div class="col-lg-12 col-md-12 col-xs-12">
+                    {% block controls %}{% endblock %}
+                </div>
+            </div>
+
+            {{
+                wo_render_breadcrumbs({
+                    viewTemplate: "AppBundle::Account/Layout/breadcrumbs.html.twig",
+                    separator: null
+                })
+            }}
+
+            {% include "AppBundle::Account/Layout/flashbag.html.twig" %}
+
+            {% block content %}{% endblock %}
+        </div>
+    </div>
+    {% block javascripts %}
+        <script type="text/javascript" src="{{ grunt_asset('js/account_vendor.js') }}"></script>
+        <script type="text/javascript" src="{{ grunt_asset('js/account.js') }}"></script>
+    {% endblock %}
+</body>
+{% endblock %}

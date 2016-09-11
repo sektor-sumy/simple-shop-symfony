@@ -1,0 +1,37 @@
+{% extends 'AppBundle::Backend/base.html.twig' %}
+
+{% block javascripts_head %}
+    {{ parent() }}
+    <script>var init = [];</script>
+{% endblock %}
+
+{% block body %}
+    <body class="theme-default main-menu-animated">
+    <div id="main-wrapper">
+        {% include "AppBundle::Backend/Layout/navbar.html.twig" %}
+        {% include "AppBundle::Backend/Layout/menu.html.twig" %}
+        <div id="content-wrapper">
+            {% include "AppBundle::Backend/Layout/flashbag_page.html.twig" %}
+            {% block header %}
+                <div class="page-header">
+                    <div class="row">
+                        <div class="col-md-8">
+                            <h1>
+                                {{ page_title|default('Admin panel'|trans) }}
+                            </h1>
+                        </div>
+                    </div>
+                </div>
+            {% endblock %}
+
+            {% include "AppBundle::Backend/Layout/flashbag.html.twig" %}
+            {% block content %}{% endblock %}
+        </div>
+        <div id="main-menu-bg"></div>
+    </div>
+    {% block javascripts %}
+        <script src="{{ grunt_asset('js/backend_vendor.js') }}"></script>
+        <script src="{{ grunt_asset('js/backend.js') }}"></script>
+    {% endblock %}
+    </body>
+{% endblock %}

@@ -1,5 +1,5 @@
 {
-  "name": "Shiptor",
+  "name": "SimpleShop",
   "license": "MIT",
   "dependencies": {
     "bootstrap": "3.*",
@@ -16,7 +16,6 @@
     "bootstrap-offcanvas": "~2.0.1",
     "jquery-autosize": "~2.0.0",
     "blueimp-file-upload": "~9.10.1",
-    "meniam-bootstrap3-timepicker": "~0.2.7",
     "slimscroll": "~1.3.3",
     "animate.css": "^3.2.5",
     "flag-icon-css": "0.7.*",

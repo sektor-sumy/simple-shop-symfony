@@ -1,0 +1,5 @@
+default:
+  options:
+    create:
+      - 'var/cache'
+      - 'var/logs'

@@ -1,24 +1,71 @@
-# To get started with security, check out the documentation:
-# http://symfony.com/doc/current/book/security.html
 security:
+    encoders:
+        Symfony\Component\Security\Core\User\UserInterface:
+            algorithm:           sha512
+            encode_as_base64:    true
+            iterations:          5000
 
-    # http://symfony.com/doc/current/book/security.html#where-do-users-come-from-user-providers
+    role_hierarchy:
+        ROLE_ROOT: [ROLE_USER, ROLE_ADMIN, ROLE_ROOT]
+        ROLE_ADMIN: [ROLE_USER, ROLE_ADMIN]
+        ROLE_USER: [ROLE_USER, IS_AUTHENTICATED_ANONYMOUSLY]
+
     providers:
-        in_memory:
-            memory: ~
+        users:
+            id: user.provider
+        admins:
+            id: admin.provider
 
     firewalls:
-        # disables authentication for assets and the profiler, adapt it according to your needs
         dev:
             pattern: ^/(_(profiler|wdt)|css|images|js)/
             security: false
-
-        main:
-            anonymous: ~
-            # activate different ways to authenticate
-
-            # http_basic: ~
-            # http://symfony.com/doc/current/book/security.html#a-configuring-how-your-users-will-authenticate
-
-            # form_login: ~
-            # http://symfony.com/doc/current/cookbook/security/form_login_setup.html
+        api:
+            host:       ^%api_domain%$
+            pattern:    ^/
+            stateless:  true
+            anonymous:  true
+        backend:
+            host: ^%backend_domain%$
+            anonymous: true
+            provider: admins
+            form_login:
+                check_path: backend-user-login-check
+                login_path: backend-user-login
+                default_target_path: backend-dashboard
+            logout:
+                path:   backend-user-logout
+                target: backend-dashboard
+            remember_me:
+                name:     BREMEMBERME
+                domain:   %main_domain%
+                secret:   %secret%
+                lifetime: 43200
+                path:     /
+                always_remember_me: true
+        frontend:
+            host: ^%main_domain%$
+            pattern:  ^/
+            anonymous: true
+            provider: users
+            switch_user: { role: ROLE_ADMIN }
+            form_login:
+                check_path: frontend-user-login-check
+                login_path: frontend-user-login
+                default_target_path: frontend-user-login
+            logout:
+                path:   frontend-user-logout
+                target: frontend-homepage
+            remember_me:
+                name:     FREMEMBERME
+                domain:   "%main_domain%"
+                secret:   "%secret%"
+                lifetime: 31536000
+                path:     /
+                always_remember_me: true
+    access_control:
+        - { host: ^%main_domain%$,      path: ^/control,    role: ROLE_ADMIN, requires_channel: "%protocol%" }
+        - { host: ^%main_domain%$,      path: ^/account,    role: ROLE_USER, requires_channel: "%protocol%" }
+        - { host: ^%main_domain%$,      path: ^/,           role: IS_AUTHENTICATED_ANONYMOUSLY, requires_channel: "%protocol%" }
+        - { host: ^%backend_domain%$,   path: ^/auth,       role: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { host: ^%backend_domain%$,   path: ^/,           role: ROLE_ADMIN }

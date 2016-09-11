@@ -2,18 +2,37 @@
 # Set parameters here that may be different on each deployment target of the app, e.g. development, staging, production.
 # http://symfony.com/doc/current/best_practices/configuration.html#infrastructure-related-configuration
 parameters:
-    database_host:     127.0.0.1
-    database_port:     ~
-    database_name:     symfony
-    database_user:     root
-    database_password: ~
-    # You should uncomment this if you want use pdo_sqlite
-    # database_path: "%kernel.root_dir%/data.db3"
+    database_driver: pdo_pgsql
+    database_host: simple-shop-dev
+    database_port: 5432
+    database_name: simple_shop
+    database_user: simple_shop
+    database_password: '111111'
+    database_dsn: 'pgsql:host=%database_host%;port=%database_port%;dbname=%database_name%;user=%database_user%;password=%database_password%'
 
-    mailer_transport:  smtp
-    mailer_host:       127.0.0.1
-    mailer_user:       ~
-    mailer_password:   ~
-
+    mailer_transport: mail
+    mailer_host: null
+    mailer_user: null
+    mailer_password: null
+    mailer_from:
+        noreply@simple-shop.dev: SimpleShop
+    mailer_reply_to:
+        - support@%main_domain%
+    default_locale: en
+    locales:
+        - en
+        - ru
     # A secret key that's used to generate certain security-related tokens
-    secret:            ThisTokenIsNotSoSecretChangeIt
+    secret: ThisTokenIsNotSoSecretChangeIt
+    session_table: public.session
+    main_domain: simple-shop.dev
+    backend_domain: admin.%main_domain%
+    files_domain: files.%main_domain%
+    api_domain: api.%main_domain%
+    protocol: http
+    auth_roles.frontend:
+        - ROLE_USER
+    auth_roles.backend:
+        - ROLE_ROOT
+        - ROLE_ADMIN
+    grunt_assets_path: '%kernel.root_dir%/assets.json'

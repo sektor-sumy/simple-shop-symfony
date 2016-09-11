@@ -3,14 +3,14 @@ imports:
     - { resource: security.yml }
     - { resource: services.yml }
 
-# Put parameters here that don't need to change on each machine where the app is deployed
-# http://symfony.com/doc/current/best_practices/configuration.html#application-related-configuration
 parameters:
     locale: en
 
 framework:
-    #esi:             ~
-    #translator:      { fallbacks: ["%locale%"] }
+    serializer:
+        enabled: true
+    translator:
+        fallbacks: "%locales%"
     secret:          "%secret%"
     router:
         resource: "%kernel.root_dir%/config/routing.yml"
@@ -25,7 +25,6 @@ framework:
     trusted_hosts:   ~
     trusted_proxies: ~
     session:
-        # http://symfony.com/doc/current/reference/configuration/framework.html#handler-id
         handler_id:  session.handler.native_file
         save_path:   "%kernel.root_dir%/../var/sessions/%kernel.environment%"
     fragments:       ~
@@ -40,24 +39,30 @@ twig:
 # Doctrine Configuration
 doctrine:
     dbal:
-        driver:   pdo_mysql
-        host:     "%database_host%"
-        port:     "%database_port%"
-        dbname:   "%database_name%"
-        user:     "%database_user%"
-        password: "%database_password%"
-        charset:  UTF8
-        # if using pdo_sqlite as your database driver:
-        #   1. add the path in parameters.yml
-        #     e.g. database_path: "%kernel.root_dir%/data/data.db3"
-        #   2. Uncomment database_path in parameters.yml.dist
-        #   3. Uncomment next line:
-        #     path:     "%database_path%"
-
+        default_connection: default
+        types:
+            date_interval: \AppBundle\Doctrine\DBAL\Types\DateIntervalPostgresType
+        connections:
+            default:
+                driver:   "%database_driver%"
+                host:     "%database_host%"
+                port:     "%database_port%"
+                dbname:   "%database_name%"
+                user:     "%database_user%"
+                password: "%database_password%"
+                charset:  UTF8
+                mapping_types:
+                    json: array
+                    tsvector: text
     orm:
+        default_entity_manager: default
         auto_generate_proxy_classes: "%kernel.debug%"
-        naming_strategy: doctrine.orm.naming_strategy.underscore
-        auto_mapping: true
+        entity_managers:
+            default:
+                connection: default
+                auto_mapping: true
+                hydrators:
+                    PairsHydrator: \AppBundle\Doctrine\ORM\Hydration\PairsHydrator
 
 # Swiftmailer Configuration
 swiftmailer:
@@ -66,3 +71,38 @@ swiftmailer:
     username:  "%mailer_user%"
     password:  "%mailer_password%"
     spool:     { type: memory }
+
+doctrine_migrations:
+    dir_name: "%kernel.root_dir%/migrations"
+    namespace: DoctrineMigrations
+    table_name: migration_versions
+    name: Application Migrations
+
+fm_elfinder:
+    instances:
+        default:
+            locale: %default_locale%     # defaults to current request locale
+            editor: ckeditor             # other options are tinymce, tinymce4, form, custom and simple
+            fullscreen: true             # defaults true, applies to simple and ckeditor editors
+            theme: smoothness            # jquery theme
+            include_assets: true         # disable if you want to handle loading of the javascript and css assets yourself
+            connector:
+                debug: false             # defaults to false
+                binds:
+                    upload.presave:
+                        - Plugin.AutoResize.onUpLoadPreSave
+                plugins:
+                    AutoResize:
+                        enable: true
+                        maxWidth: 1900
+                        maxHeight: 1900
+                        quality: 95
+                roots:
+                    uploads:
+                        show_hidden: false # defaults to false
+                        driver: LocalFileSystem
+                        path: uploads
+                        upload_allow: ['image/png', 'image/jpg', 'image/jpeg']
+                        upload_deny: ['all']
+                        upload_max_size: 32M
+

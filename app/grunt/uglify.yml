@@ -1,0 +1,33 @@
+main:
+  options:
+    mangle:
+      except: [ "jQuery", "Backbone" ]
+    sourceMap: true
+  files:
+    web/js/frontend.js:
+      - app/Resources/js/frontend/**/*.js
+      - app/Resources/js/components/**/*.js
+    web/js/account.js:
+      - app/Resources/js/account/**/*.js
+      - app/Resources/js/components/**/*.js
+    web/js/backend.js:
+      - app/Resources/js/backend/**/*.js
+      - app/Resources/js/components/**/*.js
+
+vendors:
+  options:
+    mangle:
+      except: [ "jQuery", "Backbone" ]
+    sourceMap: false
+  files:
+    web/js/frontend_head.js:
+      - vendor-web/jquery/dist/jquery.js
+    web/js/frontend_vendor.js:
+      - vendor-web/bootstrap/dist/js/bootstrap.js
+    web/js/account_head.js:
+      - vendor-web/jquery/dist/jquery.js
+    web/js/account_vendor.js:
+    web/js/backend_head.js:
+      - vendor-web/jquery/dist/jquery.js
+    web/js/backend_vendor.js:
+      - vendor-web/bootstrap/dist/js/bootstrap.js

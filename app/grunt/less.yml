@@ -1,0 +1,57 @@
+dev_backend:
+  options:
+    optimization: 2
+    dumpLineNumbers: all
+  files:
+    web/css/backend.css: app/Resources/less/backend/main.less
+    web/css/backend_pace.css: app/Resources/less/backend/pace.less
+dev_frontend:
+  options:
+    optimization: 2
+    dumpLineNumbers: all
+  files:
+    web/css/frontend.css: app/Resources/less/frontend/main.less
+dev_account:
+  options:
+    optimization: 2
+    dumpLineNumbers: all
+  files:
+    web/css/account.css: app/Resources/less/account/main.less
+    web/css/account_pace.css: app/Resources/less/account/pace.less
+dev_email:
+  options:
+    optimization: 2
+    dumpLineNumbers: all
+  files:
+    web/css/email.css: app/Resources/less/email/main.less
+
+prod_backend:
+  options:
+    compress: true
+    yuicompress: true
+    optimization: 2
+  files:
+    web/css/backend.css: app/Resources/less/backend/main.less
+    web/css/backend_pace.css: app/Resources/less/backend/pace.less
+prod_frontend:
+  options:
+    compress: true
+    yuicompress: true
+    optimization: 2
+  files:
+    web/css/frontend.css: app/Resources/less/frontend/main.less
+prod_account:
+  options:
+    compress: true
+    yuicompress: true
+    optimization: 2
+  files:
+    web/css/account.css: app/Resources/less/account/main.less
+    web/css/account_pace.css: app/Resources/less/account/pace.less
+prod_email:
+  options:
+    compress: true
+    yuicompress: true
+    optimization: 2
+  files:
+    web/css/email.css: app/Resources/less/email/main.less

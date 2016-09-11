@@ -1,0 +1,22 @@
+default:
+  tasks:
+    - clean
+    - mkdir
+    - copy
+    - less:dev_frontend
+    - less:dev_backend
+    - less:dev_account
+    - less:dev_email
+    - uglify
+    - watch
+
+prod:
+  tasks:
+    - clean
+    - mkdir
+    - copy
+    - less:prod_frontend
+    - less:prod_backend
+    - less:prod_account
+    - less:prod_email
+    - uglify

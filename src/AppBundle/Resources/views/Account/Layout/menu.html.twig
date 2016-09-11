@@ -1,0 +1,37 @@
+<div class="sidebar left">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="profile-sidebar">
+                    <div class="profile-userpic">
+                        <img src="{{ gravatar(app.user.email, '60') }}" alt="" class="img-circle img-responsive">
+                    </div>
+                    <div class="profile-usertitle">
+                        <div class="profile-usertitle-name">
+                            {{ app.user.fullName|default(app.user.email) }}
+                        </div>
+                        <div class="profile-usertitle-article">
+                            {{ app.user.article }}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <nav class="sidebarnav" role="navigation" id="main-menu">
+        <article class="block">
+            <header class="header">{{ 'Overview'|trans }}</header>
+            <ul class="sidebarnav">
+                <li class="item">
+                    <a href="{{ url('account-dashboard') }}">
+                        <i class="fa fa-desktop"></i><span>{{ 'Dashboard'|trans }}</span>
+                    </a>
+                </li>
+            </ul>
+        </article>
+    </nav>
+
+    <footer class="footer text-muted">
+        &copy; {{ "now"|date("Y") }} Simple shop
+    </footer>
+</div>

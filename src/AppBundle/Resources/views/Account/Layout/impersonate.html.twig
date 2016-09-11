@@ -1,0 +1,13 @@
+{% block impersonate %}
+    {% if is_granted('ROLE_ADMIN_AS_USER') %}
+        <div class="alert alert-danger">
+            <button type="button" class="close" data-dismiss="alert">&times;</button>
+            <strong>{{ 'Warning!'|trans }}</strong>
+            {{ 'You are authorized as %user%.'|trans({ '%user%': '<strong>'~app.user.email~'</strong>' })|raw }}
+            <a class="btn btn-default btn-labeled" href="{{ url('account-dashboard', {_switch_user : '_exit'}) }}">
+                <span class="btn-label fa fa-sign-out"></span>
+                {{ 'Switch back'|trans }}
+            </a>
+        </div>
+    {% endif %}
+{% endblock %}

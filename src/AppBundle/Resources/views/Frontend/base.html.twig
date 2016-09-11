@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8" />
+        {% if meta_robots is defined and meta_robots -%}
+            <meta name="robots" content="{{ meta_robots }}" />
+        {% endif -%}
+
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta name="format-detection" content="telephone=no" />
+        <title>{{ meta_title|default('Simple shop') }}</title>
+
+        {%- if meta_description is defined -%}
+            <meta name="description" content="{{ meta_description|default('Simple shop') }}" />
+        {% endif -%}
+
+        {% if meta_keywords is defined -%}
+            <meta name="keywords" content="{{ meta_keywords|default('Simple shop') }}" />
+        {% endif -%}
+
+        <link rel="icon" type="image/x-icon" href="{{ asset('img/frontend/favicon.ico') }}" />
+
+        {%- block stylesheets -%}
+            <link href="{{ grunt_asset('css/frontend.css') }}" media="all" rel="stylesheet" />
+        {% endblock -%}
+
+        {% block javascripts_head -%}
+            <script src="{{ grunt_asset('js/frontend_head.js') }}"></script>
+        {% endblock %}
+    </head>
+    {% block body %}{% endblock %}
+</html>

@@ -1,0 +1,34 @@
+{% extends 'AppBundle::Backend/base.html.twig' %}
+
+{% block body %}
+<body class="login theme-default">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-offset-3 col-sm-6 col-md-offset-4 col-md-4 col-lg-offset-4 col-lg-4 fadeInDownSmall animated">
+                <div class="login-banner text-center" style="padding: 40px 0;">
+                    <h1><i class="fa fa-gears"></i>Admin</h1>
+                </div>
+                <div class="portlet portlet-green">
+                    <div class="portlet-body">
+                        {% if error %}
+                            <div class="alert alert-danger error">{{ error.message }}</div>
+                        {% endif %}
+
+                        <form action="{{ path('backend-user-login-check') }}" method="post" accept-charset="UTF-8" role="form">
+                            <fieldset>
+                                <div class="form-group">
+                                    <input class="form-control" placeholder="{{ 'E-mail'|trans }}" name="_username" type="text" value="{{ last_username }}">
+                                </div>
+                                <div class="form-group">
+                                    <input class="form-control" placeholder="{{ 'Password'|trans }}" name="_password" type="password" value="">
+                                </div>
+                                <button type="submit" class="btn btn-lg btn-primary btn-block">{{ 'Sign In'|trans }}</button>
+                            </fieldset>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+{% endblock %}

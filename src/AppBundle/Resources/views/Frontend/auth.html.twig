@@ -1,0 +1,13 @@
+{% extends 'AppBundle::Frontend/base.html.twig' %}
+
+{% block body %}
+<body>
+    <section class="container">
+        {% block content %}{% endblock %}
+    </section>
+
+    {% block javascripts %}
+        <script src="{{ grunt_asset('js/frontend_vendor.js') }}"></script>
+    {% endblock %}
+</body>
+{% endblock %}

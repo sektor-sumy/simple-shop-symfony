@@ -4,7 +4,6 @@ dev_backend:
     dumpLineNumbers: all
   files:
     web/css/backend.css: app/Resources/less/backend/main.less
-    web/css/backend_pace.css: app/Resources/less/backend/pace.less
 dev_frontend:
   options:
     optimization: 2

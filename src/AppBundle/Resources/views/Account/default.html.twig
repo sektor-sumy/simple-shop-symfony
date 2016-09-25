@@ -19,13 +19,6 @@
                 </div>
             </div>
 
-            {{
-                wo_render_breadcrumbs({
-                    viewTemplate: "AppBundle::Account/Layout/breadcrumbs.html.twig",
-                    separator: null
-                })
-            }}
-
             {% include "AppBundle::Account/Layout/flashbag.html.twig" %}
 
             {% block content %}{% endblock %}

@@ -6,11 +6,11 @@
 {% endblock %}
 
 {% block body %}
-    <body class="theme-default main-menu-animated">
-    <div id="main-wrapper">
+    <body class="hold-transition skin-blue sidebar-mini">
+    <div class="wrapper">
         {% include "AppBundle::Backend/Layout/navbar.html.twig" %}
         {% include "AppBundle::Backend/Layout/menu.html.twig" %}
-        <div id="content-wrapper">
+        <div class="content-wrapper">
             {% include "AppBundle::Backend/Layout/flashbag_page.html.twig" %}
             {% block header %}
                 <div class="page-header">
@@ -25,9 +25,10 @@
             {% endblock %}
 
             {% include "AppBundle::Backend/Layout/flashbag.html.twig" %}
-            {% block content %}{% endblock %}
+            <section class="content">
+                {% block content %}{% endblock %}
+            </section>
         </div>
-        <div id="main-menu-bg"></div>
     </div>
     {% block javascripts %}
         <script src="{{ grunt_asset('js/backend_vendor.js') }}"></script>
